@@ -12,3 +12,13 @@ The `itertools` package (with an `s`) is a package in the standard library.  It 
 *   `itertools` is strictly a library of [*streaming algorithms*](http://en.wikipedia.org/wiki/Streaming_algorithm) while `itertoolz` accepts functions that require finite iterators.
 *   `itertools` changes very slowly and is managed by the official Python community (you submit a `PEP`).  `itertoolz` is more loose (you submit a pull request)
 *   `itertools` is minimal.  `itertoolz` accepts recipes.
+
+Author
+------
+
+[Matthew Rocklin](http://matthewrocklin.com)
+
+LICENSE
+-------
+
+New BSD.  See [License File](LICENSE.TXT).
