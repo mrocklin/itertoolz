@@ -30,6 +30,7 @@ from Queue import PriorityQueue
 def merge_sorted(*iters, **kwargs):
     """ Merge and sort a collection of sorted collections
 
+    >>> from itertoolz import merge_sorted
     >>> list(merge_sorted([1, 3, 5], [2, 4, 6]))
     [1, 2, 3, 4, 5, 6]
 
