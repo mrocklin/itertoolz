@@ -1,1 +1,1 @@
-from core import remove, groupby
+from core import remove, groupby, merge_sorted

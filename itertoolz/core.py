@@ -25,3 +25,34 @@ def groupby(f, coll):
             d[key] = []
         d[key].append(item)
     return d
+
+from Queue import PriorityQueue
+def merge_sorted(*iters, **kwargs):
+    """ Merge and sort a collection of sorted collections
+
+    >>> list(merge_sorted([1, 3, 5], [2, 4, 6]))
+    [1, 2, 3, 4, 5, 6]
+
+    >>> ''.join(merge_sorted('abc', 'abc', 'abc'))
+    'aaabbbccc'
+    """
+    key = kwargs.get('key', lambda x: x)
+    iters = map(iter, iters)
+    pq = PriorityQueue()
+
+    def inject_first_element(it):
+        try:
+            item = next(it)
+            pq.put((key(item), item, it))
+        except StopIteration:
+            pass
+
+    # Initial population
+    for it in iters:
+        inject_first_element(it)
+
+    # Repeatedly yield and then repopulate from the same iterator
+    while not pq.empty():
+        _, item, it = pq.get()
+        yield item
+        inject_first_element(it)

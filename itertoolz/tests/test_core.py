@@ -1,4 +1,4 @@
-from itertoolz.core import remove, groupby
+from itertoolz.core import remove, groupby, merge_sorted
 
 def even(x):
     return x % 2 == 0
@@ -10,3 +10,8 @@ def test_remove():
 
 def test_groupby():
     assert groupby(even, [1, 2, 3, 4]) == {True: [2, 4], False: [1, 3]}
+
+def test_merge_sorted():
+    assert list(merge_sorted([1,2,3], [1,2,3])) == [1,1,2,2,3,3]
+    assert list(merge_sorted([1,3,5], [2,4,6])) == [1,2,3,4,5,6]
+    assert list(merge_sorted([1], [2, 4], [3], [])) == [1, 2, 3, 4]
