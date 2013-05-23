@@ -22,3 +22,13 @@ LICENSE
 -------
 
 New BSD.  See [License File](LICENSE.TXT).
+
+Install
+-------
+
+`itertoolz` is on the Python Package Index (PyPi)
+
+    easy_install itertoolz
+    pip install itertoolz
+
+`itertoolz` is Pure Python.  It intends to support Python 2.5 and above.
