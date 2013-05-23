@@ -1,7 +1,7 @@
 Itertoolz
 =========
 
-More useful tools for Python iterators
+More useful tools for Python iterators.  A set of common utility functions.
 
 Relationship to `itertools`
 ---------------------------
