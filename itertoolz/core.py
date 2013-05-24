@@ -1,3 +1,5 @@
+import itertools
+
 def remove(predicate, coll):
     """ Return those items of collection for which predicate(item) is true.
 
@@ -89,7 +91,7 @@ def interleave(seqs, pass_exceptions=()):
 
     Returns a lazy iterator
     """
-    iters = it.imap(iter, seqs)
+    iters = itertools.imap(iter, seqs)
     while iters:
         newiters = []
         for itr in iters:
