@@ -108,17 +108,16 @@ def interleave(seqs, pass_exceptions=()):
 def unique(seq, key=identity):
     """ Return only unique elements of a sequence
 
-    Uniqueness can be defined by key keyword
-
     >>> from itertoolz import unique
     >>> tuple(unique((1, 2, 3)))
     (1, 2, 3)
     >>> tuple(unique((1, 2, 1, 3)))
     (1, 2, 3)
 
+    Uniqueness can be defined by key keyword
+
     >>> def mod_10(x):
     ...     return x % 10
-
     >>> tuple(unique((5, 10, 15, 18, 20, 38), key=mod_10))
     (5, 10, 18)
     """
