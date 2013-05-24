@@ -1,4 +1,5 @@
-from itertoolz.core import remove, groupby, merge_sorted, merge_dict
+from itertoolz.core import (remove, groupby, merge_sorted, merge_dict,
+        interleave)
 
 def even(x):
     return x % 2 == 0
@@ -18,3 +19,7 @@ def test_merge_sorted():
 
 def test_merge_dict():
     assert merge_dict({1: 1, 2: 2}, {3: 4}) == {1: 1, 2: 2, 3: 4}
+
+def test_interleave():
+    assert ''.join(interleave(('ABC', '123'))) == 'A1B2C3'
+    assert ''.join(interleave(('ABC', '1'))) == 'A1BC'

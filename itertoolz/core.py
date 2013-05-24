@@ -74,3 +74,28 @@ def merge_dict(*dicts):
     for d in dicts:
         rv.update(d)
     return rv
+
+def interleave(seqs, pass_exceptions=()):
+    """ Interleave a sequence of sequences
+
+    >>> from itertoolz import interleave
+    >>> list(interleave([[1, 2], [3, 4]]))
+    [1, 3, 2, 4]
+
+    >>> ''.join(interleave(('ABC', 'XY')))
+    'AXBYC'
+
+    Both the individual sequences and the sequence of sequences may be infinite
+
+    Returns a lazy iterator
+    """
+    iters = it.imap(iter, seqs)
+    while iters:
+        newiters = []
+        for itr in iters:
+            try:
+                yield next(itr)
+                newiters.append(itr)
+            except (StopIteration,) + tuple(pass_exceptions):
+                pass
+        iters = newiters
