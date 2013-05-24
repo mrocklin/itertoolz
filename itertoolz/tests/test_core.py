@@ -1,5 +1,5 @@
 from itertoolz.core import (remove, groupby, merge_sorted, merge_dict,
-        interleave)
+        interleave, unique)
 
 def even(x):
     return x % 2 == 0
@@ -23,3 +23,8 @@ def test_merge_dict():
 def test_interleave():
     assert ''.join(interleave(('ABC', '123'))) == 'A1B2C3'
     assert ''.join(interleave(('ABC', '1'))) == 'A1BC'
+
+def test_unique():
+    assert tuple(unique((1, 2, 3))) == (1, 2, 3)
+    assert tuple(unique((1, 2, 1, 3))) == (1, 2, 3)
+    assert tuple(unique((1, 2, 3), key=even)) == (1, 2)

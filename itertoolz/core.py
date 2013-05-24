@@ -1,5 +1,7 @@
 import itertools
 
+identity = lambda x: x
+
 def remove(predicate, coll):
     """ Return those items of collection for which predicate(item) is true.
 
@@ -39,7 +41,7 @@ def merge_sorted(*iters, **kwargs):
     >>> ''.join(merge_sorted('abc', 'abc', 'abc'))
     'aaabbbccc'
     """
-    key = kwargs.get('key', lambda x: x)
+    key = kwargs.get('key', identity)
     iters = map(iter, iters)
     pq = PriorityQueue()
 
@@ -101,3 +103,30 @@ def interleave(seqs, pass_exceptions=()):
             except (StopIteration,) + tuple(pass_exceptions):
                 pass
         iters = newiters
+
+
+def unique(seq, key=identity):
+    """ Return only unique elements of a sequence
+
+    Uniqueness can be defined by key keyword
+
+    >>> from itertoolz import unique
+    >>> tuple(unique((1, 2, 3)))
+    (1, 2, 3)
+    >>> tuple(unique((1, 2, 1, 3)))
+    (1, 2, 3)
+
+    >>> def mod_10(x):
+    ...     return x % 10
+
+    >>> tuple(unique((5, 10, 15, 18, 20, 38), key=mod_10))
+    (5, 10, 18)
+    """
+    seen = set()
+    for item in seq:
+        try:
+            if key(item) not in seen:
+                seen.add(key(item))
+                yield item
+        except TypeError:   # item probably isn't hashable
+            yield item      # Just return it and hope for the best
