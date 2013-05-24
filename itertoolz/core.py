@@ -124,9 +124,7 @@ def unique(seq, key=identity):
     """
     seen = set()
     for item in seq:
-        try:
-            if key(item) not in seen:
-                seen.add(key(item))
-                yield item
-        except TypeError:   # item probably isn't hashable
-            yield item      # Just return it and hope for the best
+        tag = key(item)
+        if tag not in seen:
+            seen.add(tag)
+            yield item
