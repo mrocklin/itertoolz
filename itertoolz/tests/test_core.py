@@ -1,5 +1,5 @@
 from itertoolz.core import (remove, groupby, merge_sorted, merge_dict,
-        interleave, unique, intersection)
+        interleave, unique, intersection, iterable)
 
 import itertools
 
@@ -34,3 +34,8 @@ def test_unique():
 def test_intersection():
     assert list(intersection([1, 2, 3], [2, 3, 4])) == [2, 3]
     assert list(intersection([3, 4], itertools.count(0))) == [3, 4]
+
+def test_iterable():
+    assert iterable([1, 2, 3]) == True
+    assert iterable('abc') == True
+    assert iterable(5) == False

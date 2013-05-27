@@ -138,3 +138,20 @@ def intersection(*seqs):
     """
     return (item for item in seqs[0]
                  if all(item in seq for seq in seqs[1:]))
+
+def iterable(x):
+    """ Is x iterable?
+
+    >>> from itertoolz import iterable
+    >>> iterable([1, 2, 3])
+    True
+    >>> iterable('abc')
+    True
+    >>> iterable(5)
+    False
+    """
+    try:
+        iter(x)
+        return True
+    except TypeError:
+        return False
