@@ -155,3 +155,19 @@ def iterable(x):
         return True
     except TypeError:
         return False
+
+def distinct(seq):
+    """ All values in sequence are distinct
+
+    >>> from itertoolz import distinct
+    >>> distinct([1, 2, 3])
+    True
+    >>> distinct([1, 2, 1])
+    False
+
+    >>> distinct("Hello")
+    False
+    >>> distinct("World")
+    True
+    """
+    return len(seq) == len(set(seq))

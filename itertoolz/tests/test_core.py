@@ -1,5 +1,5 @@
 from itertoolz.core import (remove, groupby, merge_sorted, merge_dict,
-        interleave, unique, intersection, iterable)
+        interleave, unique, intersection, iterable, distinct)
 
 import itertools
 
@@ -39,3 +39,10 @@ def test_iterable():
     assert iterable([1, 2, 3]) == True
     assert iterable('abc') == True
     assert iterable(5) == False
+
+def test_distinct():
+    assert distinct([1, 2, 3]) == True
+    assert distinct([1, 2, 1]) == False
+
+    assert distinct("Hello") == False
+    assert distinct("World") == True
