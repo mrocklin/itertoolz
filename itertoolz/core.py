@@ -127,3 +127,14 @@ def unique(seq, key=identity):
         if tag not in seen:
             seen.add(tag)
             yield item
+
+
+def intersection(*seqs):
+    """ Lazily evaluated intersection of sequences
+
+    >>> from itertoolz import intersection
+    >>> list(intersection([1, 2, 3], [2, 3, 4]))
+    [2, 3]
+    """
+    return (item for item in seqs[0]
+                 if all(item in seq for seq in seqs[1:]))

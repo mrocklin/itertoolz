@@ -1,1 +1,2 @@
-from core import remove, groupby, merge_sorted, merge_dict, interleave, unique
+from core import (remove, groupby, merge_sorted, merge_dict, interleave,
+        unique, intersection)

@@ -1,5 +1,7 @@
 from itertoolz.core import (remove, groupby, merge_sorted, merge_dict,
-        interleave, unique)
+        interleave, unique, intersection)
+
+import itertools
 
 def even(x):
     return x % 2 == 0
@@ -28,3 +30,7 @@ def test_unique():
     assert tuple(unique((1, 2, 3))) == (1, 2, 3)
     assert tuple(unique((1, 2, 1, 3))) == (1, 2, 3)
     assert tuple(unique((1, 2, 3), key=even)) == (1, 2)
+
+def test_intersection():
+    assert list(intersection([1, 2, 3], [2, 3, 4])) == [2, 3]
+    assert list(intersection([3, 4], itertools.count(0))) == [3, 4]
