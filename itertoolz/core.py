@@ -171,3 +171,15 @@ def distinct(seq):
     True
     """
     return len(seq) == len(set(seq))
+
+def frequencies(seq):
+    """ Find number of occurrence of each value
+
+    >>> frequencies(["cat", "pig", "cat", "trout", "pig", "dog",
+    ...              "dog", "dog", "dog"]) == \
+                     {"cat": 2, "trout": 1, "pig": 2, "dog": 4}
+    True
+    """
+    identity = lambda x: x
+    return dict([(k, len(v)) for k, v in groupby(identity, seq).items()])
+    

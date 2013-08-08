@@ -1,5 +1,5 @@
 from itertoolz.core import (remove, groupby, merge_sorted, merge_dict,
-        interleave, unique, intersection, iterable, distinct)
+        interleave, unique, intersection, iterable, distinct, frequencies)
 
 import itertools
 
