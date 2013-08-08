@@ -1,6 +1,8 @@
 import itertools
 
+
 identity = lambda x: x
+
 
 def remove(predicate, coll):
     """ Return those items of collection for which predicate(item) is true.
@@ -29,6 +31,7 @@ def groupby(f, coll):
             d[key] = []
         d[key].append(item)
     return d
+
 
 from Queue import PriorityQueue
 def merge_sorted(*iters, **kwargs):
@@ -62,6 +65,7 @@ def merge_sorted(*iters, **kwargs):
         yield item
         inject_first_element(it)
 
+
 def merge_dict(*dicts):
     """ Merge a collection of dictionaries
 
@@ -78,6 +82,7 @@ def merge_dict(*dicts):
     for d in dicts:
         rv.update(d)
     return rv
+
 
 def interleave(seqs, pass_exceptions=()):
     """ Interleave a sequence of sequences
@@ -156,6 +161,7 @@ def iterable(x):
     except TypeError:
         return False
 
+
 def distinct(seq):
     """ All values in sequence are distinct
 
@@ -171,3 +177,13 @@ def distinct(seq):
     True
     """
     return len(seq) == len(set(seq))
+
+
+def frequencies(seq):
+    """ Find number of occurrences of each value in seq
+
+    >>> frequencies(['cat', 'cat', 'ox', 'pig', 'pig', 'cat'])  #doctest: +SKIP
+    {'cat': 3, 'ox': 1, 'pig': 2}
+    """
+    identity = lambda x: x
+    return dict([(k, len(v)) for k, v in groupby(identity, seq).items()])
