@@ -1,5 +1,5 @@
 from itertoolz.core import (remove, groupby, merge_sorted, merge_dict,
-        interleave, unique, intersection, iterable, distinct, frequencies)
+        interleave, unique, intersection, iterable, distinct)
 
 import itertools
 
@@ -58,12 +58,3 @@ def test_distinct():
 
     assert distinct("Hello") == False
     assert distinct("World") == True
-
-
-def test_frequencies():
-    assert (frequencies(["cat", "pig", "cat", "eel",
-                        "pig", "dog", "dog", "dog"]) ==
-            {"cat": 2, "eel": 1, "pig": 2, "dog": 3})
-    assert frequencies([]) == {}
-    assert frequencies("onomatopoeia") == {"a": 2, "e": 1, "i": 1, "m": 1,
-                                           "o": 4, "n": 1, "p": 1, "t": 1}
