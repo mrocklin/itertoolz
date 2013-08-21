@@ -32,3 +32,9 @@ Install
     pip install itertoolz
 
 `itertoolz` is Pure Python.  It intends to support Python 2.5 and above.
+
+See Also
+--------
+
+*   [`functoolz`](http://github.com/mrocklin/functoolz)
+*   [`classtoolz`](http://github.com/mrocklin/classtoolz)
