@@ -13,7 +13,7 @@ def odd(x):
 
 
 def test_remove():
-    assert remove(even, range(5)) == filter(odd, range(5))
+    assert list(remove(even, range(5))) == list(filter(odd, range(5)))
 
 
 def test_groupby():

@@ -33,6 +33,13 @@ Install
 
 `itertoolz` is Pure Python.  It intends to support Python 2.5 and above.
 
+Dependencies
+------------
+
+`itertoolz` supports Python 2.6+ and Python 3.2+ with a common codebase.
+
+It has no dependencies outside of the standard library.
+
 See Also
 --------
 
