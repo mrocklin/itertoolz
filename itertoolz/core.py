@@ -10,7 +10,7 @@ def remove(predicate, coll):
     >>> from itertoolz import remove
     >>> def even(x):
     ...     return x % 2 == 0
-    >>> remove(even, [1, 2, 3, 4])
+    >>> list(remove(even, [1, 2, 3, 4]))
     [1, 3]
     """
     return filter(lambda x: not predicate(x), coll)
@@ -33,7 +33,7 @@ def groupby(f, coll):
     return d
 
 
-from Queue import PriorityQueue
+from itertoolz.compatibility import Queue
 def merge_sorted(*iters, **kwargs):
     """ Merge and sort a collection of sorted collections
 
@@ -46,24 +46,24 @@ def merge_sorted(*iters, **kwargs):
     """
     key = kwargs.get('key', identity)
     iters = map(iter, iters)
-    pq = PriorityQueue()
+    pq = Queue.PriorityQueue()
 
-    def inject_first_element(it):
+    def inject_first_element(it, tiebreaker=None):
         try:
             item = next(it)
-            pq.put((key(item), item, it))
+            pq.put((key(item), item, tiebreaker, it))
         except StopIteration:
             pass
 
     # Initial population
-    for it in iters:
-        inject_first_element(it)
+    for i, it in enumerate(iters):
+        inject_first_element(it, i)
 
     # Repeatedly yield and then repopulate from the same iterator
     while not pq.empty():
-        _, item, it = pq.get()
+        _, item, tb, it = pq.get()
         yield item
-        inject_first_element(it)
+        inject_first_element(it, tb)
 
 
 def merge_dict(*dicts):
@@ -98,7 +98,7 @@ def interleave(seqs, pass_exceptions=()):
 
     Returns a lazy iterator
     """
-    iters = itertools.imap(iter, seqs)
+    iters = map(iter, seqs)
     while iters:
         newiters = []
         for itr in iters:
