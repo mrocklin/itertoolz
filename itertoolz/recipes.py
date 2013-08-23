@@ -1,7 +1,7 @@
 from itertoolz.core import groupby, identity
 
 def countby(func, seq):
-    """ Group elements of a collection by a key function
+    """ Count elements of a collection by a key function
 
     >>> countby(len, ['cat', 'mouse', 'dog'])
     {3: 2, 5: 1}
