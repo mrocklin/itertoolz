@@ -1,5 +1,6 @@
 from itertoolz.core import (remove, groupby, merge_sorted, merge_dict,
-        interleave, unique, intersection, iterable, distinct)
+        interleave, unique, intersection, iterable, distinct,
+        first, second, nth, take, drop, rest, last)
 
 import itertools
 
@@ -58,3 +59,32 @@ def test_distinct():
 
     assert distinct("Hello") == False
     assert distinct("World") == True
+
+
+def test_nth():
+    assert nth(2, 'ABCDE') == 'C'
+    assert nth(1, (3,2,1)) == 2
+
+def test_first():
+    assert first('ABCDE') == 'A'
+    assert first((3,2,1)) == 3
+
+def test_second():
+    assert second('ABCDE') == 'B'
+    assert second((3,2,1)) == 2
+
+def test_last():
+    assert last('ABCDE') == 'E'
+    assert last((3,2,1)) == 1
+
+def test_rest():
+    assert list(rest('ABCDE')) == list('BCDE')
+    assert list(rest((3, 2, 1))) == list((2, 1))
+
+def test_take():
+    assert list(take(3, 'ABCDE')) == list('ABC')
+    assert list(take(2, (3, 2, 1))) == list((3, 2))
+
+def test_drop():
+    assert list(drop(3, 'ABCDE')) == list('DE')
+    assert list(drop(1, (3, 2, 1))) == list((2, 1))

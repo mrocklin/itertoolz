@@ -1,4 +1,5 @@
 import itertools
+from functools import partial
 
 
 identity = lambda x: x
@@ -166,3 +167,59 @@ def distinct(seq):
     True
     """
     return len(seq) == len(set(seq))
+
+def take(n, seq):
+    """ The first n elements of a sequence
+
+    >>> list(take(2, [10, 20, 30, 40, 50]))
+    [10, 20]
+    """
+    return itertools.islice(seq, n)
+
+def drop(n, seq):
+    """ The sequence following the first n elements
+
+    >>> list(drop(2, [10, 20, 30, 40, 50]))
+    [30, 40, 50]
+    """
+    return itertools.islice(seq, n, None)
+
+def first(seq):
+    """ The first element in a sequence
+
+    >>> first('ABC')
+    'A'
+    """
+    return next(iter(seq))
+
+def nth(n, seq):
+    """ The nth element in a sequence
+
+    >>> nth(1, 'ABC')
+    'B'
+    """
+    try:
+        return seq[n]
+    except TypeError:
+        return next(itertools.islice(seq, n, None))
+
+def last(seq):
+    """ The last element in a sequence
+
+    >>> last('ABC')
+    'C'
+    """
+    try:
+        return seq[-1]
+    except TypeError:
+        old = None
+        it = iter(seq)
+        while True:
+            try:
+                old = next(it)
+            except StopIteration:
+                return old
+
+
+second = partial(nth, 1)
+rest = partial(drop, 1)
