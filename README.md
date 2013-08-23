@@ -31,10 +31,15 @@ Install
 
 `itertoolz` is on the Python Package Index (PyPi)
 
-    easy_install itertoolz
     pip install itertoolz
 
-`itertoolz` is Pure Python.  It intends to support Python 2.5 and above.
+or 
+    
+    easy_install itertoolz
+
+or from source
+
+    ./setup.py install
 
 Dependencies
 ------------
