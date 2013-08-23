@@ -7,7 +7,6 @@ identity = lambda x: x
 def remove(predicate, coll):
     """ Return those items of collection for which predicate(item) is true.
 
-    >>> from itertoolz import remove
     >>> def even(x):
     ...     return x % 2 == 0
     >>> list(remove(even, [1, 2, 3, 4]))
@@ -19,7 +18,6 @@ def remove(predicate, coll):
 def groupby(f, coll):
     """ Group a collection by a key function
 
-    >>> from itertoolz import groupby
     >>> names = ['Alice', 'Bob', 'Charlie', 'Dan', 'Edith', 'Frank']
     >>> groupby(len, names)
     {3: ['Bob', 'Dan'], 5: ['Alice', 'Edith', 'Frank'], 7: ['Charlie']}
@@ -37,7 +35,6 @@ from itertoolz.compatibility import Queue
 def merge_sorted(*iters, **kwargs):
     """ Merge and sort a collection of sorted collections
 
-    >>> from itertoolz import merge_sorted
     >>> list(merge_sorted([1, 3, 5], [2, 4, 6]))
     [1, 2, 3, 4, 5, 6]
 
@@ -69,7 +66,6 @@ def merge_sorted(*iters, **kwargs):
 def merge_dict(*dicts):
     """ Merge a collection of dictionaries
 
-    >>> from itertoolz import merge_dict
     >>> merge_dict({1: 'one'}, {2: 'two'})
     {1: 'one', 2: 'two'}
 
@@ -87,7 +83,6 @@ def merge_dict(*dicts):
 def interleave(seqs, pass_exceptions=()):
     """ Interleave a sequence of sequences
 
-    >>> from itertoolz import interleave
     >>> list(interleave([[1, 2], [3, 4]]))
     [1, 3, 2, 4]
 
@@ -113,7 +108,6 @@ def interleave(seqs, pass_exceptions=()):
 def unique(seq, key=identity):
     """ Return only unique elements of a sequence
 
-    >>> from itertoolz import unique
     >>> tuple(unique((1, 2, 3)))
     (1, 2, 3)
     >>> tuple(unique((1, 2, 1, 3)))
@@ -135,7 +129,6 @@ def unique(seq, key=identity):
 def intersection(*seqs):
     """ Lazily evaluated intersection of sequences
 
-    >>> from itertoolz import intersection
     >>> list(intersection([1, 2, 3], [2, 3, 4]))
     [2, 3]
     """
@@ -145,7 +138,6 @@ def intersection(*seqs):
 def iterable(x):
     """ Is x iterable?
 
-    >>> from itertoolz import iterable
     >>> iterable([1, 2, 3])
     True
     >>> iterable('abc')
@@ -163,7 +155,6 @@ def iterable(x):
 def distinct(seq):
     """ All values in sequence are distinct
 
-    >>> from itertoolz import distinct
     >>> distinct([1, 2, 3])
     True
     >>> distinct([1, 2, 1])
