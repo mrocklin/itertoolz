@@ -3,6 +3,9 @@ Itertoolz
 
 More useful tools for Python iterators.  A set of common utility functions.
 
+[![Build Status](https://travis-ci.org/mrocklin/itertoolz.png)](https://travis-ci.org/mrocklin/itertoolz)
+
+
 Relationship to `itertools`
 ---------------------------
 
