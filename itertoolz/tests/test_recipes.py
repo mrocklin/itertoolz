@@ -1,4 +1,4 @@
-from itertoolz.recipes import countby, frequencies
+from itertoolz import countby, frequencies
 
 def even(x): return x % 2 == 0
 

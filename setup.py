@@ -2,7 +2,7 @@ from os.path import exists
 from setuptools import setup
 
 setup(name='itertoolz',
-      version='0.4',
+      version='0.5',
       description='More iterator tools',
       url='http://github.com/mrocklin/itertoolz',
       author='Matthew Rocklin',

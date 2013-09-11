@@ -1,17 +1,14 @@
-from itertoolz.core import (remove, groupby, merge_sorted, merge_dict,
+from itertoolz import (remove, groupby, merge_sorted, merge_dict,
         interleave, unique, intersection, iterable, distinct,
         first, second, nth, take, drop, rest, last)
 
 import itertools
 
-
 def even(x):
     return x % 2 == 0
 
-
 def odd(x):
     return x % 2 == 1
-
 
 def test_remove():
     assert list(remove(even, range(5))) == list(filter(odd, range(5)))
