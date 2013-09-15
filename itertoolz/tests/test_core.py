@@ -4,11 +4,14 @@ from itertoolz import (remove, groupby, merge_sorted, merge_dict,
 
 import itertools
 
+
 def even(x):
     return x % 2 == 0
 
+
 def odd(x):
     return x % 2 == 1
+
 
 def test_remove():
     assert list(remove(even, range(5))) == list(filter(odd, range(5)))
@@ -60,27 +63,33 @@ def test_distinct():
 
 def test_nth():
     assert nth(2, 'ABCDE') == 'C'
-    assert nth(1, (3,2,1)) == 2
+    assert nth(1, (3, 2, 1)) == 2
+
 
 def test_first():
     assert first('ABCDE') == 'A'
-    assert first((3,2,1)) == 3
+    assert first((3, 2, 1)) == 3
+
 
 def test_second():
     assert second('ABCDE') == 'B'
-    assert second((3,2,1)) == 2
+    assert second((3, 2, 1)) == 2
+
 
 def test_last():
     assert last('ABCDE') == 'E'
-    assert last((3,2,1)) == 1
+    assert last((3, 2, 1)) == 1
+
 
 def test_rest():
     assert list(rest('ABCDE')) == list('BCDE')
     assert list(rest((3, 2, 1))) == list((2, 1))
 
+
 def test_take():
     assert list(take(3, 'ABCDE')) == list('ABC')
     assert list(take(2, (3, 2, 1))) == list((3, 2))
+
 
 def test_drop():
     assert list(drop(3, 'ABCDE')) == list('DE')

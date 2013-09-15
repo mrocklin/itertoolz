@@ -1,5 +1,6 @@
 import itertools
 from functools import partial
+from itertoolz.compatibility import Queue
 
 
 identity = lambda x: x
@@ -32,7 +33,6 @@ def groupby(f, coll):
     return d
 
 
-from itertoolz.compatibility import Queue
 def merge_sorted(*iters, **kwargs):
     """ Merge and sort a collection of sorted collections
 
@@ -136,6 +136,7 @@ def intersection(*seqs):
     return (item for item in seqs[0]
                  if all(item in seq for seq in seqs[1:]))
 
+
 def iterable(x):
     """ Is x iterable?
 
@@ -168,6 +169,7 @@ def distinct(seq):
     """
     return len(seq) == len(set(seq))
 
+
 def take(n, seq):
     """ The first n elements of a sequence
 
@@ -175,6 +177,7 @@ def take(n, seq):
     [10, 20]
     """
     return itertools.islice(seq, n)
+
 
 def drop(n, seq):
     """ The sequence following the first n elements
@@ -184,6 +187,7 @@ def drop(n, seq):
     """
     return itertools.islice(seq, n, None)
 
+
 def first(seq):
     """ The first element in a sequence
 
@@ -191,6 +195,7 @@ def first(seq):
     'A'
     """
     return next(iter(seq))
+
 
 def nth(n, seq):
     """ The nth element in a sequence
@@ -202,6 +207,7 @@ def nth(n, seq):
         return seq[n]
     except TypeError:
         return next(itertools.islice(seq, n, None))
+
 
 def last(seq):
     """ The last element in a sequence
