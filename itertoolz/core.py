@@ -244,7 +244,7 @@ def concat(seqs):
     [1, 2, 3]
 
     See also:
-        itertools.cjain.from_iterable  equivalent
+        itertools.chain.from_iterable  equivalent
     """
     return itertools.chain.from_iterable(seqs)
 
