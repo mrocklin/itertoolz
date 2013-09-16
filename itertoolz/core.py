@@ -231,22 +231,6 @@ second = partial(nth, 1)
 rest = partial(drop, 1)
 
 
-def comp(a, b):
-    """
-    Composition of two functions.
-
-    FIXME: where should this live?  toolz/functoolz?
-
-    FIXME: generalize to more than two arguments
-
-    >>> comp(lambda a: a * 2, lambda b: b + 4)(3)
-    14
-    """
-    def f(*args, **kwargs):
-        return a(b(*args, **kwargs))
-    return f
-
-
 def concat(seqs):
     """
     Concatenate zero or more iterables, any of which may be infinite
@@ -279,11 +263,13 @@ def mapcat(f, seqs):
     ...             [["a", "b"], ["c", "d", "e"]]))
     ['A', 'B', 'C', 'D', 'E']
     """
-    return concat(iter(f(s) for s in seqs))
+    return concat(itertools.imap(f, seqs))
 
 
 def cons(el, seq):
     """
+    Add el to beginning of (possibly infinite) sequence seq.
+
     >>> list(cons(1, [2, 3]))
     [1, 2, 3]
     """
