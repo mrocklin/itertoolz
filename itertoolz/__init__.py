@@ -1,5 +1,5 @@
 from .core import (groupby, remove,
-        first, second, nth, take, drop, rest, last,
+        first, second, nth, take, drop, rest, last, get,
         merge_sorted, merge_dict,
         interleave, unique, intersection, iterable, distinct)
 

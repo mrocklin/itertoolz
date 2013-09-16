@@ -1,6 +1,6 @@
 from itertoolz import (remove, groupby, merge_sorted, merge_dict,
         interleave, unique, intersection, iterable, distinct,
-        first, second, nth, take, drop, rest, last)
+        first, second, nth, take, drop, rest, last, get)
 
 import itertools
 
@@ -85,3 +85,9 @@ def test_take():
 def test_drop():
     assert list(drop(3, 'ABCDE')) == list('DE')
     assert list(drop(1, (3, 2, 1))) == list((2, 1))
+
+def test_get():
+    assert get(1, 'ABCDE') == 'B'
+    assert list(get([1, 3], 'ABCDE')) == list('BD')
+    assert get('a', {'a': 1, 'b': 2, 'c': 3}) == 1
+    assert get(['a', 'b'], {'a': 1, 'b': 2, 'c': 3}) == (1, 2)

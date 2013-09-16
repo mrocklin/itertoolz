@@ -223,3 +223,30 @@ def last(seq):
 
 second = partial(nth, 1)
 rest = partial(drop, 1)
+
+def get(ind, seq):
+    """ Get element in a sequence or dict
+
+    Provides standard indexing
+    >>> get(1, 'ABC')       # Same as 'ABC'[1]
+    'B'
+
+    Pass a list to get multiple values
+    >>> get([1, 2], 'ABC')  # ('ABC'[1], 'ABC'[2])
+    ('B', 'C')
+
+    Works on any value that supports indexing/getitem
+    For example here we see that it works with dictionaries
+    >>> phonebook = {'Alice':  '555-1234',
+    ...              'Bob':    '555-5678',
+    ...              'Charlie':'555-9999'}
+    >>> get('Alice', phonebook)
+    '555-1234'
+
+    >>> get(['Alice', 'Bob'], phonebook)
+    ('555-1234', '555-5678')
+    """
+    if isinstance(ind, list):
+        return tuple(seq[i] for i in ind)
+    else:
+        return seq[ind]
