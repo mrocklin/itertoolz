@@ -233,9 +233,10 @@ rest = partial(drop, 1)
 
 def concat(seqs):
     """
-    Concatenate zero or more iterables, any of which may be infinite
-    (obviously, an infinite sequence will prevent the rest of the
-    arguments from being included).
+    Concatenate zero or more iterables, any of which may be infinite.
+
+    An infinite sequence will prevent the rest of the arguments from
+    being included.
 
     We use chain.from_iterable rather than chain(*seqs) so that seqs
     can be a generator.
