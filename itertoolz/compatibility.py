@@ -5,3 +5,4 @@ if PY3:
     import queue as Queue
 else:
     import Queue
+    range = xrange

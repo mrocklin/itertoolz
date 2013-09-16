@@ -5,6 +5,7 @@ from itertoolz import (remove, groupby, merge_sorted, merge_dict,
                        intersection, iterable, mapcat, distinct,
                        first, second, nth, take, drop, interpose,
                        rest, last)
+from itertoolz.compatibility import range
 
 
 def even(x):
@@ -103,7 +104,7 @@ def test_mapcat():
             [1, 2, 3, 4, 5, 6])
 
     assert (list(mapcat(reversed, [[3, 2, 1, 0], [6, 5, 4], [9, 8, 7]])) ==
-            range(10))
+            list(range(10)))
 
     inc = lambda i: i + 1
     assert ([4, 5, 6, 7, 8, 9] ==
@@ -112,16 +113,16 @@ def test_mapcat():
 
 def test_concat():
     assert list(concat([[], [], []])) == []
-    assert (list(take(5, concat([['a', 'b'], xrange(1000000000)]))) ==
+    assert (list(take(5, concat([['a', 'b'], range(1000000000)]))) ==
             ['a', 'b', 0, 1, 2])
 
 
 def test_concatv():
     assert list(concatv([], [], [])) == []
-    assert (list(take(5, concatv(['a', 'b'], xrange(1000000000)))) ==
+    assert (list(take(5, concatv(['a', 'b'], range(1000000000)))) ==
             ['a', 'b', 0, 1, 2])
 
 
 def test_interpose():
-    assert "a" == first(rest(interpose("a", xrange(10000000000))))
+    assert "a" == first(rest(interpose("a", range(10000000000))))
     assert "tXaXrXzXaXn" == "".join(interpose("X", "tarzan"))
