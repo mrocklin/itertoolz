@@ -1,8 +1,10 @@
-from itertoolz import (remove, groupby, merge_sorted, merge_dict,
-        interleave, unique, intersection, iterable, distinct,
-        first, second, nth, take, drop, rest, last)
-
 import itertools
+from functools import partial
+from itertoolz import (remove, groupby, merge_sorted, merge_dict,
+                       concat, concatv, interleave, unique, identity,
+                       intersection, iterable, mapcat, distinct,
+                       first, second, nth, take, drop, interpose,
+                       rest, last)
 
 
 def even(x):
@@ -94,3 +96,32 @@ def test_take():
 def test_drop():
     assert list(drop(3, 'ABCDE')) == list('DE')
     assert list(drop(1, (3, 2, 1))) == list((2, 1))
+
+
+def test_mapcat():
+    assert (list(mapcat(identity, [[1, 2, 3], [4, 5, 6]])) ==
+            [1, 2, 3, 4, 5, 6])
+
+    assert (list(mapcat(reversed, [[3, 2, 1, 0], [6, 5, 4], [9, 8, 7]])) ==
+            range(10))
+
+    inc = lambda i: i + 1
+    assert ([4, 5, 6, 7, 8, 9] ==
+            list(mapcat(partial(map, inc), [[3, 4, 5], [6, 7, 8]])))
+
+
+def test_concat():
+    assert list(concat([[], [], []])) == []
+    assert (list(take(5, concat([['a', 'b'], xrange(1000000000)]))) ==
+            ['a', 'b', 0, 1, 2])
+
+
+def test_concatv():
+    assert list(concatv([], [], [])) == []
+    assert (list(take(5, concatv(['a', 'b'], xrange(1000000000)))) ==
+            ['a', 'b', 0, 1, 2])
+
+
+def test_interpose():
+    assert "a" == first(rest(interpose("a", xrange(10000000000))))
+    assert "tXaXrXzXaXn" == "".join(interpose("X", "tarzan"))

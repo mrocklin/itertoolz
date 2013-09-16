@@ -229,3 +229,72 @@ def last(seq):
 
 second = partial(nth, 1)
 rest = partial(drop, 1)
+
+
+def comp(a, b):
+    """
+    Composition of two functions.
+
+    FIXME: where should this live?  toolz/functoolz?
+
+    FIXME: generalize to more than two arguments
+
+    >>> comp(lambda a: a * 2, lambda b: b + 4)(3)
+    14
+    """
+    def f(*args, **kwargs):
+        return a(b(*args, **kwargs))
+    return f
+
+
+def concat(seqs):
+    """
+    Concatenate zero or more iterables, any of which may be infinite
+    (obviously, an infinite sequence will prevent the rest of the
+    arguments from being included).
+
+    We use chain.from_iterable rather than chain(*seqs) so that seqs
+    can be a generator.
+
+    >>> list(concat([[], [1], [2, 3]]))
+    [1, 2, 3]
+    """
+    return itertools.chain.from_iterable(seqs)
+
+
+def concatv(*seqs):
+    """
+    Variadic version of concat, a la Clojure
+
+    >>> list(concatv([], ["a"], ["b", "c"]))
+    ['a', 'b', 'c']
+    """
+    return concat(seqs)
+
+
+def mapcat(f, seqs):
+    """
+    Apply f to each sequence in seqs, concatenating results
+    >>> list(mapcat(lambda s: [c.upper() for c in s],
+    ...             [["a", "b"], ["c", "d", "e"]]))
+    ['A', 'B', 'C', 'D', 'E']
+    """
+    return concat(iter(f(s) for s in seqs))
+
+
+def cons(el, seq):
+    """
+    >>> list(cons(1, [2, 3]))
+    [1, 2, 3]
+    """
+    yield el
+    for s in seq:
+        yield s
+
+
+def interpose(a, seq):
+    """
+    >>> list(interpose("a", [1, 2, 3]))
+    [1, 'a', 2, 'a', 3]
+    """
+    return rest(mapcat(lambda x: [a, x], seq))
