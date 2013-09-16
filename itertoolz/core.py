@@ -242,6 +242,9 @@ def concat(seqs):
 
     >>> list(concat([[], [1], [2, 3]]))
     [1, 2, 3]
+
+    See also:
+        itertools.cjain.from_iterable  equivalent
     """
     return itertools.chain.from_iterable(seqs)
 
