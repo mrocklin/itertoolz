@@ -91,3 +91,5 @@ def test_get():
     assert list(get([1, 3], 'ABCDE')) == list('BD')
     assert get('a', {'a': 1, 'b': 2, 'c': 3}) == 1
     assert get(['a', 'b'], {'a': 1, 'b': 2, 'c': 3}) == (1, 2)
+
+    assert get('foo', {}, default='bar') == 'bar'

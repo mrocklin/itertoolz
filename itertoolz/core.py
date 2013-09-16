@@ -224,7 +224,8 @@ def last(seq):
 second = partial(nth, 1)
 rest = partial(drop, 1)
 
-def get(ind, seq):
+no_default='__no__default__'
+def get(ind, seq, default=no_default):
     """ Get element in a sequence or dict
 
     Provides standard indexing
@@ -245,8 +246,17 @@ def get(ind, seq):
 
     >>> get(['Alice', 'Bob'], phonebook)
     ('555-1234', '555-5678')
+
+    Provide a default for missing values
+    >>> get(['Alice', 'Dennis'], phonebook, None)
+    ('555-1234', None)
     """
     if isinstance(ind, list):
-        return tuple(seq[i] for i in ind)
-    else:
+        return tuple(get(i, seq, default) for i in ind)
+    if default is no_default:
         return seq[ind]
+    else:
+        try:
+            return seq[ind]
+        except (KeyError, IndexError):
+            return default
