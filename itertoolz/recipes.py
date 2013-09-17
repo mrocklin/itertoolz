@@ -1,5 +1,6 @@
 from itertoolz.core import groupby, identity
 
+
 def countby(func, seq):
     """ Count elements of a collection by a key function
 

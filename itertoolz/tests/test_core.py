@@ -1,15 +1,20 @@
 import itertools
-from itertoolz import (remove, groupby, merge_sorted, merge_dict,
-        interleave, unique, intersection, iterable, distinct,
-        first, second, nth, take, drop, rest, last, get)
-
 from itertoolz.utils import raises
+from functools import partial
+from itertoolz import (remove, groupby, merge_sorted, merge_dict,
+                       concat, concatv, interleave, unique, identity,
+                       intersection, iterable, mapcat, distinct,
+                       first, second, nth, take, drop, interpose, get,
+                       rest, last, cons)
+from itertoolz.compatibility import range
 
 def even(x):
     return x % 2 == 0
 
+
 def odd(x):
     return x % 2 == 1
+
 
 def test_remove():
     assert list(remove(even, range(5))) == list(filter(odd, range(5)))
@@ -61,31 +66,38 @@ def test_distinct():
 
 def test_nth():
     assert nth(2, 'ABCDE') == 'C'
-    assert nth(1, (3,2,1)) == 2
+    assert nth(1, (3, 2, 1)) == 2
+
 
 def test_first():
     assert first('ABCDE') == 'A'
-    assert first((3,2,1)) == 3
+    assert first((3, 2, 1)) == 3
+
 
 def test_second():
     assert second('ABCDE') == 'B'
-    assert second((3,2,1)) == 2
+    assert second((3, 2, 1)) == 2
+
 
 def test_last():
     assert last('ABCDE') == 'E'
-    assert last((3,2,1)) == 1
+    assert last((3, 2, 1)) == 1
+
 
 def test_rest():
     assert list(rest('ABCDE')) == list('BCDE')
     assert list(rest((3, 2, 1))) == list((2, 1))
 
+
 def test_take():
     assert list(take(3, 'ABCDE')) == list('ABC')
     assert list(take(2, (3, 2, 1))) == list((3, 2))
 
+
 def test_drop():
     assert list(drop(3, 'ABCDE')) == list('DE')
     assert list(drop(1, (3, 2, 1))) == list((2, 1))
+
 
 def test_get():
     assert get(1, 'ABCDE') == 'B'
@@ -97,3 +109,36 @@ def test_get():
 
     assert raises(IndexError, lambda : get(10, 'ABC'))
     assert raises(KeyError, lambda : get(10, {'a': 1}))
+
+
+def test_mapcat():
+    assert (list(mapcat(identity, [[1, 2, 3], [4, 5, 6]])) ==
+            [1, 2, 3, 4, 5, 6])
+
+    assert (list(mapcat(reversed, [[3, 2, 1, 0], [6, 5, 4], [9, 8, 7]])) ==
+            list(range(10)))
+
+    inc = lambda i: i + 1
+    assert ([4, 5, 6, 7, 8, 9] ==
+            list(mapcat(partial(map, inc), [[3, 4, 5], [6, 7, 8]])))
+
+
+def test_cons():
+    assert list(cons(1, [2, 3])) == [1, 2, 3]
+
+
+def test_concat():
+    assert list(concat([[], [], []])) == []
+    assert (list(take(5, concat([['a', 'b'], range(1000000000)]))) ==
+            ['a', 'b', 0, 1, 2])
+
+
+def test_concatv():
+    assert list(concatv([], [], [])) == []
+    assert (list(take(5, concatv(['a', 'b'], range(1000000000)))) ==
+            ['a', 'b', 0, 1, 2])
+
+
+def test_interpose():
+    assert "a" == first(rest(interpose("a", range(10000000000))))
+    assert "tXaXrXzXaXn" == "".join(interpose("X", "tarzan"))
