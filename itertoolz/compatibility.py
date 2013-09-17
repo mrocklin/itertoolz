@@ -5,6 +5,8 @@ if PY3:
     import queue as Queue
     range = range
     imap = map
+    imap = map
+    range = range
 else:
     import Queue
     range = xrange

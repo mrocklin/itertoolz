@@ -4,7 +4,7 @@ from itertoolz import (remove, groupby, merge_sorted, merge_dict,
                        concat, concatv, interleave, unique, identity,
                        intersection, iterable, mapcat, distinct,
                        first, second, nth, take, drop, interpose,
-                       rest, last)
+                       rest, last, cons)
 from itertoolz.compatibility import range
 
 
@@ -110,6 +110,9 @@ def test_mapcat():
     assert ([4, 5, 6, 7, 8, 9] ==
             list(mapcat(partial(map, inc), [[3, 4, 5], [6, 7, 8]])))
 
+
+def test_cons():
+    assert list(cons(1, [2, 3])) == [1, 2, 3]
 
 def test_concat():
     assert list(concat([[], [], []])) == []

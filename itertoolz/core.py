@@ -232,8 +232,7 @@ rest = partial(drop, 1)
 
 
 def concat(seqs):
-    """
-    Concatenate zero or more iterables, any of which may be infinite.
+    """ Concatenate zero or more iterables, any of which may be infinite.
 
     An infinite sequence will prevent the rest of the arguments from
     being included.
@@ -251,18 +250,20 @@ def concat(seqs):
 
 
 def concatv(*seqs):
-    """
-    Variadic version of concat, a la Clojure
+    """ Variadic version of concat
 
     >>> list(concatv([], ["a"], ["b", "c"]))
     ['a', 'b', 'c']
+
+    See also:
+        itertools.chain
     """
     return concat(seqs)
 
 
 def mapcat(f, seqs):
-    """
-    Apply f to each sequence in seqs, concatenating results
+    """ Apply f to each sequence in seqs, concatenating results
+
     >>> list(mapcat(lambda s: [c.upper() for c in s],
     ...             [["a", "b"], ["c", "d", "e"]]))
     ['A', 'B', 'C', 'D', 'E']
@@ -271,8 +272,7 @@ def mapcat(f, seqs):
 
 
 def cons(el, seq):
-    """
-    Add el to beginning of (possibly infinite) sequence seq.
+    """ Add el to beginning of (possibly infinite) sequence seq.
 
     >>> list(cons(1, [2, 3]))
     [1, 2, 3]
@@ -282,9 +282,10 @@ def cons(el, seq):
         yield s
 
 
-def interpose(a, seq):
-    """
+def interpose(el, seq):
+    """ Introduce element between each pair of elements in seq
+
     >>> list(interpose("a", [1, 2, 3]))
     [1, 'a', 2, 'a', 3]
     """
-    return rest(mapcat(lambda x: [a, x], seq))
+    return rest(mapcat(lambda x: [el, x], seq))
