@@ -16,10 +16,10 @@ The `itertools` package (with an `s`) is a package in the standard library.  It 
 *   `itertools` changes very slowly and is managed by the official Python community (you submit a `PEP`).  `itertoolz` is more loose (you submit a pull request)
 *   `itertools` is minimal.  `itertoolz` accepts recipes.
 
-Author
-------
+Authors
+-------
 
-[Matthew Rocklin](http://matthewrocklin.com)
+See the [AUTHORS file](AUTHORS)
 
 LICENSE
 -------
