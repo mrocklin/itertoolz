@@ -1,5 +1,6 @@
 import itertools
 from functools import partial
+from itertoolz.compatibility import Queue, imap
 
 
 identity = lambda x: x
@@ -32,7 +33,6 @@ def groupby(f, coll):
     return d
 
 
-from itertoolz.compatibility import Queue
 def merge_sorted(*iters, **kwargs):
     """ Merge and sort a collection of sorted collections
 
@@ -136,6 +136,7 @@ def intersection(*seqs):
     return (item for item in seqs[0]
                  if all(item in seq for seq in seqs[1:]))
 
+
 def iterable(x):
     """ Is x iterable?
 
@@ -168,6 +169,7 @@ def distinct(seq):
     """
     return len(seq) == len(set(seq))
 
+
 def take(n, seq):
     """ The first n elements of a sequence
 
@@ -175,6 +177,7 @@ def take(n, seq):
     [10, 20]
     """
     return itertools.islice(seq, n)
+
 
 def drop(n, seq):
     """ The sequence following the first n elements
@@ -184,6 +187,7 @@ def drop(n, seq):
     """
     return itertools.islice(seq, n, None)
 
+
 def first(seq):
     """ The first element in a sequence
 
@@ -191,6 +195,7 @@ def first(seq):
     'A'
     """
     return next(iter(seq))
+
 
 def nth(n, seq):
     """ The nth element in a sequence
@@ -202,6 +207,7 @@ def nth(n, seq):
         return seq[n]
     except TypeError:
         return next(itertools.islice(seq, n, None))
+
 
 def last(seq):
     """ The last element in a sequence
@@ -223,3 +229,63 @@ def last(seq):
 
 second = partial(nth, 1)
 rest = partial(drop, 1)
+
+
+def concat(seqs):
+    """ Concatenate zero or more iterables, any of which may be infinite.
+
+    An infinite sequence will prevent the rest of the arguments from
+    being included.
+
+    We use chain.from_iterable rather than chain(*seqs) so that seqs
+    can be a generator.
+
+    >>> list(concat([[], [1], [2, 3]]))
+    [1, 2, 3]
+
+    See also:
+        itertools.chain.from_iterable  equivalent
+    """
+    return itertools.chain.from_iterable(seqs)
+
+
+def concatv(*seqs):
+    """ Variadic version of concat
+
+    >>> list(concatv([], ["a"], ["b", "c"]))
+    ['a', 'b', 'c']
+
+    See also:
+        itertools.chain
+    """
+    return concat(seqs)
+
+
+def mapcat(f, seqs):
+    """ Apply f to each sequence in seqs, concatenating results
+
+    >>> list(mapcat(lambda s: [c.upper() for c in s],
+    ...             [["a", "b"], ["c", "d", "e"]]))
+    ['A', 'B', 'C', 'D', 'E']
+    """
+    return concat(imap(f, seqs))
+
+
+def cons(el, seq):
+    """ Add el to beginning of (possibly infinite) sequence seq.
+
+    >>> list(cons(1, [2, 3]))
+    [1, 2, 3]
+    """
+    yield el
+    for s in seq:
+        yield s
+
+
+def interpose(el, seq):
+    """ Introduce element between each pair of elements in seq
+
+    >>> list(interpose("a", [1, 2, 3]))
+    [1, 'a', 2, 'a', 3]
+    """
+    return rest(mapcat(lambda x: [el, x], seq))
