@@ -114,6 +114,7 @@ def test_mapcat():
 def test_cons():
     assert list(cons(1, [2, 3])) == [1, 2, 3]
 
+
 def test_concat():
     assert list(concat([[], [], []])) == []
     assert (list(take(5, concat([['a', 'b'], range(1000000000)]))) ==
